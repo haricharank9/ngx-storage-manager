@@ -3,4 +3,5 @@
  */
 
 export * from './lib/ngx-storage-manager.module';
-export * from './lib/ngx-storage-manager.service';
+export * from './lib/INgxStorageManagerConfig';
+export * from './lib/INgxStorageService';
