@@ -14,7 +14,13 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-storage-manager": [
+        "dist/ngx-storage-manager/ngx-storage-manager",
+        "dist/ngx-storage-manager"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
