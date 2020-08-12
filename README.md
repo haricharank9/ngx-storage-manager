@@ -27,6 +27,7 @@ Angular library for performing operations on local or session storage of browser
 ```
 
 **Usage**
+
 Configure in your AppModule.ts imports
 
 ```typescript
