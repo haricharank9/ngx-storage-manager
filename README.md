@@ -1,27 +1,51 @@
 # NgxStorageManager
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.2.
+Angular library for performing operations on local or session storage of browser typically with any kind of data.
 
-## Development server
+**API**
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```typescript
+/**
+ *All the methods have storage parameter as an optional parameter.
+ *It's default to localStorage
+ */
 
-## Code scaffolding
+//For setting item in storage
+   setStorageItem(key: string, value: any, storage?: Storage): void;
+//For reading values from storage
+   getStorageItem(key: string, storage?: Storage): any;
+//For removing the item from storage
+   removeStorageItem(key: string, storage?: Storage): void;
+//For removing multiple items from storage
+   removeStorageItems(keys: string[], storage?: Storage):void;
+//For clearing the entire storage
+   clearStorage(storage?: Storage): void;
+//For patching/updating the value to existing object
+   patchStorageItem(key: string, value: {}, storage?: Storage): void;
+//Clears the storage excluding the keys mentioned in config.
+   excludedClear(storage?: Storage): void;
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+**Usage**
+Configure in your AppModule.ts imports
 
-## Build
+```typescript
+import { StorageManagerModule } from "ngx-storage-manager";
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+@NgModule({
+  imports: [
+    NgxStorageManagerModule.forRoot({
+      excludedKeys: [] //strings of excluded keys when calling excludedClear
+    })
+  ]
+```
 
-## Running unit tests
+Inject `INgxStorageManagerService` wherever you wanna make use of API.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```typescript
+import { INgxStorageManagerService } from "ngx-storage-manager";
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+export class AppComponent implements OnInit {
+  constructor(private storage: INgxStorageManagerService) {}
+}
+```
