@@ -1,24 +1,58 @@
 # NgxStorageManager
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.12.
+Angular library for performing operations on local or session storage of browser typically with any kind of data.
 
-## Code scaffolding
+**Installation**
 
-Run `ng generate component component-name --project ngx-storage-manager` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-storage-manager`.
-> Note: Don't forget to add `--project ngx-storage-manager` or else it will be added to the default project in your `angular.json` file. 
+```bash
+npm i ngx-storage-manager
+```
 
-## Build
+**API**
 
-Run `ng build ngx-storage-manager` to build the project. The build artifacts will be stored in the `dist/` directory.
+```typescript
+/**
+ *All the methods have storage parameter as an optional parameter.
+ *It's default to localStorage
+ */
 
-## Publishing
+//For setting item in storage
+   setStorageItem(key: string, value: any, storage?: Storage): void;
+//For reading values from storage
+   getStorageItem(key: string, storage?: Storage): any;
+//For removing the item from storage
+   removeStorageItem(key: string, storage?: Storage): void;
+//For removing multiple items from storage
+   removeStorageItems(keys: string[], storage?: Storage):void;
+//For clearing the entire storage
+   clearStorage(storage?: Storage): void;
+//For patching/updating the value to existing object
+   patchStorageItem(key: string, value: {}, storage?: Storage): void;
+//Clears the storage excluding the keys mentioned in config.
+   excludedClear(storage?: Storage): void;
+```
 
-After building your library with `ng build ngx-storage-manager`, go to the dist folder `cd dist/ngx-storage-manager` and run `npm publish`.
+**Usage**
 
-## Running unit tests
+Configure in your AppModule.ts imports
 
-Run `ng test ngx-storage-manager` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```typescript
+import { StorageManagerModule } from "ngx-storage-manager";
 
-## Further help
+@NgModule({
+  imports: [
+    NgxStorageManagerModule.forRoot({
+      excludedKeys: [] //strings of excluded keys when calling excludedClear
+    })
+  ]
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Inject `INgxStorageManagerService` wherever you wanna make use of API.
+
+```typescript
+import { INgxStorageManagerService } from "ngx-storage-manager";
+
+export class AppComponent implements OnInit {
+  constructor(private storage: INgxStorageManagerService) {}
+}
+```

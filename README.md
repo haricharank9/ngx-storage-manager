@@ -2,6 +2,12 @@
 
 Angular library for performing operations on local or session storage of browser typically with any kind of data.
 
+**Installation**
+
+```bash
+npm i ngx-storage-manager
+```
+
 **API**
 
 ```typescript
